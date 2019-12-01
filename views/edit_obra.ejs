@@ -1,0 +1,44 @@
+<%- include layouts/header.ejs %>
+
+<div class="page-data">
+
+    <form method="post" action="/obras/edit/<%=data[0].idobra%>">
+        <table cellpadding="11">
+            <input type="text" name="idobra" value="<%= data[0].idobra %>" required hidden />
+            <tr>
+                <td class="label">NoObra</td>
+                <td><input type="text" name="noobra" value="<%= data[0].noobra %>" required /></td>
+            </tr>
+            <tr>
+                <td class="label">NuAno</td>
+                <td><input type="number" name="nuano" value="<%= data[0].nuano %>" required /></td>
+            </tr>
+            <tr>
+                <td class="label">NuEdicao</td>
+                <td><input type="text" name="nuedicao" value="<%= data[0].nuedicao %>" required /></td>
+            </tr>
+            <tr>
+                <td class="label">VaPreco</td>
+                <td><input type="number" name="vapreco" value="<%= data[0].vapreco %>" required /></td>
+            </tr>
+            <tr>
+                <td class="label">IdIdioma</td>
+                <td><input type="number" name="ididioma" value="<%= data[0].ididioma %>" required /></td>
+            </tr>
+            <tr>
+                <td class="label">IdEditora</td>
+                <td><input type="number" name="ideditora" value="<%= data[0].ideditora %>" required /></td>
+            </tr>
+            <tr>
+                <td class="label"></td>
+                <td>
+                    &nbsp; <input type="submit" name="submit" value="Save">
+                    <input type="button" name="cancel" value="Cancel" class="cancel" onClick="cancelAdd()">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+<%- include layouts/footer.ejs %>

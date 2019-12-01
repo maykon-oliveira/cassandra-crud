@@ -1,25 +1,13 @@
+const express = require('express');
+const routes = require('./routes');
+const http = require('http');
+const path = require('path');
 
-/**
- * Module dependencies.
- */
+const obras = require('./routes/obras');
+const cassandrainfo = require('./routes/cassandrainfo');
 
-var express = require('express');
-var routes = require('./routes');
-var http = require('http');
-var path = require('path');
+const app = express();
 
-//load customers route
-var customers = require('./routes/customers');
-//load cassandra route
-var cassandrainfo = require('./routes/cassandrainfo');
-
-var app = express();
-
-var cassandra = require('cassandra-driver');
-
-const client = new cassandra.Client({contactPoints: [process.env.CASSANDRA_IP || 'cassandra']});
-
-// all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -32,16 +20,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', routes.index);
 app.get('/cassandrainfo', cassandrainfo.init_cassandra);
-app.get('/customers', customers.list);
-app.get('/customers/add', customers.add);
-app.post('/customers/add', customers.save);
-app.get('/customers/delete/:id', customers.delete_customer);
-app.get('/customers/edit/:id', customers.edit);
-app.post('/customers/edit/:id',customers.save_edit);
-
+// Obras
+app.get('/obras', obras.list);
+app.get('/obras/add', obras.add);
+app.post('/obras/add', obras.save);
+app.get('/obras/delete/:id', obras.delete_customer);
+app.get('/obras/edit/:id', obras.edit);
+app.post('/obras/edit/:id', obras.save_edit);
 
 app.use(app.router);
 
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app)
+  .listen(app.get('port'), () => {
   console.log('Express server listening on port ' + app.get('port'));
 });

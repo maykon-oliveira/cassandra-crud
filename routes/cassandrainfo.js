@@ -1,56 +1,52 @@
-var cassandra = require('cassandra-driver');
+const cassandra = require('cassandra-driver');
 
-var client = new cassandra.Client({contactPoints: [process.env.CASSANDRA_IP || 'cassandra']});
+const client = new cassandra.Client({ contactPoints: [process.env.CASSANDRA_IP || 'cassandra'], localDataCenter: 'datacenter1' });
 
-/*
- * GET home page.
- */
-
-exports.init_cassandra = function(req, res){
-
+exports.init_cassandra = (req, res) => {
 	client.connect()
-		.then(function () {
-			const query = "CREATE KEYSPACE IF NOT EXISTS people WITH replication =" +
-			  "{'class': 'SimpleStrategy', 'replication_factor': '1' }";
+		.then(() => {
+			const query = "CREATE KEYSPACE IF NOT EXISTS db_biblioteca WITH replication =" +
+				"{'class': 'SimpleStrategy', 'replication_factor': '1' }";
 			return client.execute(query);
 		})
-		.then(function () {
-			const query = "CREATE TABLE IF NOT EXISTS people.subscribers" +
-				" (id uuid, name text, address text, email text, phone text, PRIMARY KEY (id))";
+		.then(() => {
+			const query = "CREATE TABLE IF NOT EXISTS db_biblioteca.obras" +
+				" (IdObra uuid, NoObra text, NuAno int, NuEdicao text, VaPreco float, IdIdioma int, IdEditora int, PRIMARY KEY (IdObra))";
 			return client.execute(query);
 		})
-		.then(function () {
-			return client.metadata.getTable('people', 'subscribers');
+		.then(() => {
+			return client.metadata.getTable('db_biblioteca', 'obras');
 		})
-		.then(function (table) {
+		.then(table => {
 			console.log('Table information');
 			console.log('- Name: %s', table.name);
 			console.log('- Columns:', table.columns);
 			console.log('- Partition keys:', table.partitionKeys);
 			console.log('- Clustering keys:', table.clusteringKeys);
 		})
-		.then(function () {
+		.then(() => {
 			console.log('Read cluster info');
-			var str = '{"hosts": [';
-			var i = 0;
-			client.hosts.forEach(function (host) {
+			let str = '{"hosts": [';
+			let i = 1
+			client.hosts.forEach(host => {
 				i++;
-	  			str += '{"address" : "' + host.address + '", "version" : "' + host.cassandraVersion + '", "rack" : "' + host.rack + '", "datacenter" : "' + host.datacenter + '"}';
-	  			console.log("hosts.length: " + client.hosts.length);
+				str += '{"address" : "' + host.address + '", "version" : "' + host.cassandraVersion + '", "rack" : "' + host.rack + '", "datacenter" : "' + host.datacenter + '"}';
+				console.log(str);
+
+				console.log("hosts.length: " + client.hosts.length);
 				if (i < client.hosts.length)
 					str += ',';
 
 			});
 			str += ']}';
 			console.log('JSON string: ' + str);
-			var jsonHosts = JSON.parse(str);
-			res.render('cassandra', {page_title:"Cassandra Details", data: jsonHosts.hosts});
+			let jsonHosts = JSON.parse(str);
+			res.render('cassandra', { page_title: "Detalhes do banco", data: jsonHosts.hosts });
 			console.log('initCassandra: success');
 		})
-		.catch(function (err) {
+		.catch(err => {
 			console.error('There was an error', err);
-			res.status(404).send({msg: err});
+			res.status(404).send({ msg: err });
 			return client.shutdown();
 		});
-
 };

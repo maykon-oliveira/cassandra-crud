@@ -1,8 +1,9 @@
-function addUser(){
+function addObra() {
 
-	window.location.href = '/customers/add';
+    window.location.href = '/obras/add';
 }
-function cancelAdd(){
 
-    window.location.href = '/customers';
+function cancelAdd() {
+
+    window.location.href = '/obras';
 }

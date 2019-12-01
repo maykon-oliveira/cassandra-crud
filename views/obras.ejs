@@ -1,0 +1,53 @@
+<%- include layouts/header.ejs %>
+
+<div class="page-data">
+    <div class="data-btn">
+        <button onClick="addObra();">+</button>
+    </div>
+    <div class="data-table">
+        <table border="1" cellpadding="7" cellspacing="7">
+            <tr>
+                <th width="50px">#</th>
+                <th>NoObra</th>
+                <th>NuAno</th>
+                <th>NuEdicao</th>
+                <th>VaPreco</th>
+                <th>IdIdioma</th>
+                <th>IdEditora</th>
+                <th width="120px">Ações</th>
+            </tr>
+
+            <% if(data.length){ 
+                                
+                 for(let i = 0;i < data.length;i++) { %>
+
+            <tr>
+                <td><%=(i+1)%></td>
+                <td><%= data[i].noobra %></td>
+                <td><%= data[i].nuano %></td>
+                <td><%= data[i].nuedicao %></td>
+                <td><%= data[i].vapreco %></td>
+                <td><%= data[i].ididioma %></td>
+                <td><%= data[i].ideditora %></td>
+                <td>
+                    <a class="a-inside edit" href="../obras/edit/<%=data[i].idobra%>">Editar</a>
+                    <a class="a-inside delete" href="../obras/delete/<%=data[i].idobra%>">Deletar</a>
+                </td>
+            </tr>
+            <% }
+            
+             }else{ %>
+            <tr>
+                <td colspan=86">Sem dados</td>
+            </tr>
+            <% } %>
+
+        </table>
+    </div>
+</div>
+<br>
+<div>
+    <a class="a-inside btn" href="/">Voltar</a>
+</div>
+
+<%- include layouts/footer.ejs %>

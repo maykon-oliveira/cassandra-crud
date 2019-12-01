@@ -4,11 +4,11 @@ This is a simple Node-Express CRUD application using Cassandra.
 
 ### Configuration
 
-Cassandra connection configuration requires `CASSANDRA_IP` environment variable or `cassandra` link alias:
+Cassandra connection configuration requires `CASSANDRA_IP` environment constiable or `cassandra` link alias:
 
 	const client = new cassandra.Client({contactPoints: [process.env.CASSANDRA_IP || 'cassandra']});
 
-Express configuration requires `PORT` environment variable. The default port is 3000: 	
+Express configuration requires `PORT` environment constiable. The default port is 3000: 	
 
 	app.listen(process.env.PORT || 3000);
 
@@ -23,7 +23,7 @@ Wercker environment properties to push image to repository:
 
 In Docker environment use Docker link and define alias: **cassandra** for Cassandra service.
 
-Or set Cassandra IP address as environment variable:
+Or set Cassandra IP address as environment constiable:
 
 	export CASSANDRA_IP=129.150.70.97
 

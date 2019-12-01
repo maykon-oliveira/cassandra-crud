@@ -1,42 +1,34 @@
 <%- include layouts/header.ejs %>
+<div class="data-table">
+  <table border="1" cellpadding="7" cellspacing="7">
+    <tr>
+      <th width="50px">#</th>
+      <th>Host</th>
+      <th>Version</th>
+      <th>Rack</th>
+      <th>Datacenter</th>
+    </tr>
 
-  <p>
-    Cassandra successfully initialized!
-  </p>
+    <% if(data.length){ 
 
-  <div class="data-table">
-    <table border="1" cellpadding="7" cellspacing="7">
-        <tr>
-            <th width="50px">No</th>
-            <th>Address</th>
-            <th>Cassandra Version</th>
-            <th>Rack</th>
-            <th>Datacenter</th>
-        </tr>
+         for(let i = 0;i < data.length;i++) { %>
 
-        <% if(data.length){ 
-
-         for(var i = 0;i < data.length;i++) { %>
-
-        <tr>
-            <td><%=(i+1)%></td>
-            <td><%=data[i].address%></td>
-            <td><%=data[i].version%></td>
-            <td><%=data[i].rack%></td>
-            <td><%=data[i].datacenter%></td>
-        </tr>
+    <tr>
+      <td><%=(i+1)%></td>
+      <td><%=data[i].address%></td>
+      <td><%=data[i].version%></td>
+      <td><%=data[i].rack%></td>
+      <td><%=data[i].datacenter%></td>
+    </tr>
     <% }
 
      }else{ %>
-         <tr>
-            <td colspan="3">No user</td>
-         </tr>
+    <tr>
+      <td colspan="3">No user</td>
+    </tr>
     <% } %>
-
-
-
-    </table>
-  </div>
-  <br>
-  <a class="a-inside btn" href="/customers">Click to open the Application</a>
+  </table>
+</div>
+<br>
+<a class="a-inside btn" href="/obras">Abrir aplicação</a>
 <%- include layouts/footer.ejs %>

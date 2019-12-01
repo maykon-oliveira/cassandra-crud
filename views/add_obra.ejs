@@ -1,0 +1,41 @@
+<%- include layouts/header.ejs %>
+<div class="page-data">
+    <form method="post" action="/obras/add">
+        <table cellpadding="11">
+            <tr>
+                <td class="label">NoObra</td>
+                <td><input type="text" name="NoObra" required /></td>
+            </tr>
+            <tr>
+                <td class="label">NuAno</td>
+                <td><input type="number" name="NuAno" required /></td>
+            </tr>
+            <tr>
+                <td class="label">NuEdicao</td>
+                <td><input type="text" name="NuEdicao" required /></td>
+            </tr>
+            <tr>
+                <td class="label">VaPreco</td>
+                <td><input type="number" name="VaPreco" required /></td>
+            </tr>
+            <tr>
+                <td class="label">IdIdioma</td>
+                <td><input type="number" name="IdIdioma" required /></td>
+            </tr>
+            <tr>
+                <td class="label">IdEditora</td>
+                <td><input type="number" name="IdEditora" required /></td>
+            </tr>
+            <tr>
+                <td class="label"></td>
+                <td>
+                    &nbsp; <input type="submit" name="submit" value="Save">
+                    <input type="button" name="cancel" value="Cancel" class="cancel" onClick="cancelAdd()">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+<%- include layouts/footer.ejs %>
