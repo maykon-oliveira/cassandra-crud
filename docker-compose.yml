@@ -1,0 +1,29 @@
+version: "3"
+services:
+  cassandra-crud:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cassandra-crud
+    image: biblioteca-crud:latest
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      CASSANDRA_IP: cassandra-db
+    ports:
+      - "3000:3000"
+    volumes:
+      - cassandra-db
+    depends_on:
+      - cassandra-db
+  cassandra-db:
+    image: cassandra
+    container_name: cassandra-db
+    restart: unless-stopped
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra-db
+volumes:
+  cassandra-db:
+    driver: local

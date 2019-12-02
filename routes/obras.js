@@ -1,6 +1,6 @@
 const cassandra = require('cassandra-driver');
 
-const client = new cassandra.Client({ contactPoints: [process.env.CASSANDRA_IP || 'cassandra'], localDataCenter: 'datacenter1' });
+const client = new cassandra.Client({ contactPoints: [process.env.CASSANDRA_IP || 'localhost'], localDataCenter: 'datacenter1' });
 client.connect(function (err, result) {
 	console.log('obras: cassandra connected');
 });

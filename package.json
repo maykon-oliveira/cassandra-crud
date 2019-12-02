@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "cassandra-crud",
   "version": "0.0.1",
   "private": true,
   "scripts": {
